@@ -1,0 +1,8 @@
+<h3> Please edit the message here: </h3>
+
+<form action="/posteditentry" method="POST">
+    <p>Your new message: </p>
+    <p><textarea name="message" rows=10 cols=60></textarea></p>
+    <p><input type="submit" value="Submit"/></p>
+    <p><input type="hidden" name="edit" value="{{request.form["edit"]}}"/></p>
+</form>

@@ -39,11 +39,10 @@ def add_entry(name, text):
         print("ERROR! Could not write entries to file.")
 
 def delete_entry(id):
-    global entries
+    global entries, GUESTBOOK_ENTRIES_FILE
     i = 0
     for e in entries:
         if e["id"] == id:
-            print(i)
             break
         i += 1
     entries.pop(i)
@@ -54,3 +53,22 @@ def delete_entry(id):
         f.close()
     except:
         print("ERROR! Could not remove entries from file.")
+
+def edit_entry(text, id):
+    global entries, GUESTBOOK_ENTRIES_FILE
+    i = 0
+    now = datetime.now()
+    time_string = now.strftime("%b %d, %Y %-I:%M %p")
+    for e in entries:
+        if e["id"] == id:
+            name = e["author"]
+            entries[i] = {"author": name, "text": text, "timestamp": time_string, "id": id}
+            break
+        i += 1
+    try:
+        f = open(GUESTBOOK_ENTRIES_FILE, "w")
+        dump_string = json.dumps(entries)
+        f.write(dump_string)
+        f.close()
+    except:
+        print("ERROR! Could not update entries to file.")
